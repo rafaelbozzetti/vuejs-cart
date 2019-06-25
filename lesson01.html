@@ -6,6 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 
+  <link rel="stylesheet" href="https://bootswatch.com/_vendor/bootstrap/dist/css/bootstrap.min.css">  
+  <style>
+    .box {
+      border:1px solid #d2d2d2;
+      width:70px;
+      height:30px;
+      float;left;
+      text-align:center;
+    }
+    .product-info img {
+      width:50%;
+      height:auto;
+    }
+    .underline {
+      text-decoration:line-through;
+    }
+  </style>
+
   <div id="app">
     <div class="product">
       <div class="product-image">
@@ -13,13 +31,23 @@
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
-        <p v-if="inStock">Em Estoque</p>
-        <p v-else>Em Falta</p>
+
+        <p :class="{ underline: !inStock, '' : inStock}"  > Em Estoque</p>
+
         <ul>
           <li v-for="detail in details"> {{ detail }}</li>
         </ul>
 
-        <button>Comprar</button>
+        <button class="btn btn-primary" v-on:click="addToCart" :disabled="!inStock" >Comprar</button>
+        
+
+        <div v-for="variant in variants" class="box"
+             :key="variant.variantId"
+             :style="{ backgroundColor: variant.variantColor}">
+          <p @mouseover="updateProduct(variant.variantImage)" v-on > 
+            {{ variant.variantColor }} 
+          </p>
+        </div> 
 
         <div class="cart">
           <p>Carrinho({{cart}})</p>
