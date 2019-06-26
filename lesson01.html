@@ -25,36 +25,10 @@
   </style>
 
   <div id="app">
-    <div class="product">
-      <div class="product-image">
-        <img :src="image" />
-      </div>
-      <div class="product-info">
-        <h1>{{ title }}</h1>
-
-        <p :class="{ underline: !inStock, '' : inStock}"  > Em Estoque</p>
-
-        <ul>
-          <li v-for="detail in details"> {{ detail }}</li>
-        </ul>
-
-        <button class="btn btn-primary" v-on:click="addToCart" :disabled="!inStock" >
-          Comprar
-        </button>        
-
-        <div v-for="(variant, index) in variants" class="box"
-             :key="variant.variantId"
-             :style="{ backgroundColor: variant.variantColor}" 
-             @mouseover="updateProduct(index)">
-            {{ variant.variantColor }} 
-        </div> 
-
-        <div class="cart">
-          <p>Carrinho({{cart}})</p>
-        </div>
-
-      </div>
-    </div>
+    <div class="cart">
+      <p>Carrinho({{cart.length}})</p>
+    </div>    
+    <product :premium="premium" @add-to-cart="updateCart"></product>
   </div>
 </head>
 
